@@ -124,7 +124,7 @@ vec3 dither(vec2 uv, vec3 color) {
   color = clamp(color - bias, 0.0, 1.0);
   vec3 quantized = floor(color * (colorNum - 1.0) + 0.5) / (colorNum - 1.0);
   float luma = dot(quantized, vec3(0.299, 0.587, 0.114));
-  if (luma < 0.34) {
+  if (luma < 0.58) {
     return vec3(0.0392, 0.4, 0.7608);
   }
   return quantized;

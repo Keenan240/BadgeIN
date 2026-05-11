@@ -19,6 +19,15 @@ function renderVariant(idx: number): ReactNode {
       return (
         <>
           <span>for</span>
+          <span className="font-toronto-tech-week font-semibold tracking-tight">
+            Toronto Tech Week
+          </span>
+        </>
+      );
+    case 1:
+      return (
+        <>
+          <span>for</span>
           <Image
             src="/logos/luma.png"
             alt="Luma"
@@ -30,17 +39,8 @@ function renderVariant(idx: number): ReactNode {
           <span>events</span>
         </>
       );
-    case 1:
-      return <span>for Networking Events</span>;
     case 2:
-      return (
-        <>
-          <span>for</span>
-          <span className="font-toronto-tech-week font-semibold tracking-tight">
-            Toronto Tech Week
-          </span>
-        </>
-      );
+      return <span>for Networking Events</span>;
     case 3:
       return <span>for Hackathons</span>;
     case 4:
@@ -121,6 +121,18 @@ const LUMA_STEPS = [
     body: "On the top right of the guest list, click the third button with the download icon. Upload that CSV file here.",
   },
 ];
+
+function RequiredFieldsNotice() {
+  return (
+    <div className="rounded-xl border bg-secondary/40 px-4 py-3 text-left">
+      <p className="text-xs font-medium text-foreground">Required guest fields</p>
+      <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+        Make sure your event form asks for each guest&apos;s full name, position,
+        company, and LinkedIn profile link.
+      </p>
+    </div>
+  );
+}
 
 function HowItWorksModal({
   open,
@@ -205,6 +217,8 @@ function HowItWorksModal({
             </li>
           ))}
         </ol>
+
+        <RequiredFieldsNotice />
 
         <Button onClick={onClose} className="w-full mt-1">
           Got it
@@ -298,6 +312,8 @@ function LumaInstructionsModal({
           ))}
         </ol>
 
+        <RequiredFieldsNotice />
+
         <Button onClick={onClose} className="w-full mt-1">
           Got it
         </Button>
@@ -377,9 +393,9 @@ export default function HomePage() {
           height: "100vh",
           zIndex: -10,
           maskImage:
-            "radial-gradient(ellipse 70% 65% at 50% 52%, transparent 38%, black 80%)",
+            "radial-gradient(ellipse 78% 72% at 50% 52%, transparent 48%, black 86%)",
           WebkitMaskImage:
-            "radial-gradient(ellipse 70% 65% at 50% 52%, transparent 38%, black 80%)",
+            "radial-gradient(ellipse 78% 72% at 50% 52%, transparent 48%, black 86%)",
         }}
       >
         <Dither
@@ -388,10 +404,18 @@ export default function HomePage() {
           waveFrequency={3}
           waveAmplitude={0.3}
           colorNum={5}
-          pixelSize={2}
+          pixelSize={3}
           enableMouseInteraction={true}
           mouseRadius={0.4}
           disableAnimation={false}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(circle at 9% 8%, rgba(10, 102, 194, 0.32) 0%, rgba(10, 102, 194, 0.22) 14%, transparent 34%)",
+          }}
         />
       </div>
 
