@@ -122,7 +122,12 @@ vec3 dither(vec2 uv, vec3 color) {
   color += threshold * step;
   float bias = 0.2;
   color = clamp(color - bias, 0.0, 1.0);
-  return floor(color * (colorNum - 1.0) + 0.5) / (colorNum - 1.0);
+  vec3 quantized = floor(color * (colorNum - 1.0) + 0.5) / (colorNum - 1.0);
+  float luma = dot(quantized, vec3(0.299, 0.587, 0.114));
+  if (luma < 0.34) {
+    return vec3(0.0392, 0.4, 0.7608);
+  }
+  return quantized;
 }
 
 void mainImage(in vec4 inputColor, in vec2 uv, out vec4 outputColor) {

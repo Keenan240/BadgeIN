@@ -497,9 +497,9 @@ export default function HomePage() {
             <button
               type="button"
               onClick={() => setShowLumaInstructions(true)}
-              className="underline-offset-4 hover:underline hover:text-foreground transition-colors"
+              className="luma-shimmer-link underline-offset-4 hover:underline transition-colors"
             >
-              For Luma Events Instructions
+              For Luma Events
             </button>
           </div>
         </div>

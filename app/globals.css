@@ -238,3 +238,32 @@
 .animate-slide-up-fade {
   animation: slideUpFade 480ms ease-out;
 }
+
+@keyframes lumaTextShimmer {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 300% 50%;
+  }
+}
+
+.luma-shimmer-link:hover,
+.luma-shimmer-link:focus-visible {
+  color: transparent;
+  background-image: linear-gradient(
+    90deg,
+    #5ec8ef,
+    #8f83dd,
+    #b456d8,
+    #d84fa4,
+    #f56f72,
+    #f4a37a,
+    #ffd25f,
+    #5ec8ef
+  );
+  background-size: 300% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: lumaTextShimmer 2.2s linear infinite;
+}
