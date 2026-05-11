@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 "use client";
 
-import { useRef, useEffect, forwardRef } from "react";
+import { useRef, useEffect } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { EffectComposer, wrapEffect } from "@react-three/postprocessing";
 import { Effect } from "postprocessing";
@@ -139,14 +139,18 @@ void mainImage(in vec4 inputColor, in vec2 uv, out vec4 outputColor) {
 }
 `;
 
+interface RetroEffectOptions {
+  colorNum?: number;
+  pixelSize?: number;
+}
+
 class RetroEffectImpl extends Effect {
-  constructor() {
+  constructor({ colorNum = 4.0, pixelSize = 2.0 }: RetroEffectOptions = {}) {
     const uniforms = new Map([
-      ["colorNum", new THREE.Uniform(4.0)],
-      ["pixelSize", new THREE.Uniform(2.0)],
+      ["colorNum", new THREE.Uniform(colorNum)],
+      ["pixelSize", new THREE.Uniform(pixelSize)],
     ]);
     super("RetroEffect", ditherFragmentShader, { uniforms });
-    this.uniforms = uniforms;
   }
   set colorNum(v: number) {
     this.uniforms.get("colorNum")!.value = v;
@@ -162,16 +166,7 @@ class RetroEffectImpl extends Effect {
   }
 }
 
-const WrappedRetro = wrapEffect(RetroEffectImpl);
-
-const RetroEffect = forwardRef<
-  RetroEffectImpl,
-  { colorNum: number; pixelSize: number }
->((props, ref) => {
-  const { colorNum, pixelSize } = props;
-  return <WrappedRetro ref={ref} colorNum={colorNum} pixelSize={pixelSize} />;
-});
-RetroEffect.displayName = "RetroEffect";
+const RetroEffect = wrapEffect(RetroEffectImpl);
 
 interface DitheredWavesProps {
   waveSpeed: number;
