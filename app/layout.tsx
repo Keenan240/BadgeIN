@@ -16,9 +16,12 @@ const dmMono = DM_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "BadgeIn — QR nametags for networking events",
+  title: "BadgeIn",
   description:
     "Upload your guest list, generate QR-coded nametag stickers, and print. From CSV to printable badges in under 5 minutes.",
+  icons: {
+    icon: "/logos/badgein-mark-white.svg",
+  },
 };
 
 export default function RootLayout({
