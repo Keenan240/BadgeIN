@@ -32,18 +32,18 @@ export function BadgeFront({ attendee, eventName, showPunchHole, theme = DEFAULT
       {showPunchHole && (
         <div
           aria-hidden
-          className={`absolute top-[3.5%] left-1/2 -translate-x-1/2 w-[4.5cqw] min-w-[10px] max-w-[18px] aspect-square rounded-full border ${
+          className={`absolute top-[3.5%] left-1/2 -translate-x-1/2 w-[4.8cqw] aspect-square rounded-full border ${
             isLight ? "bg-white/30 border-white/40" : "bg-neutral-200 border-neutral-300"
           }`}
         />
       )}
-      <header className="flex shrink-0 items-start justify-between gap-3 px-[8%] pb-3 pt-[20pt]">
+      <header className="flex shrink-0 items-start justify-between gap-[5cqw] px-[8%] pb-[5.5cqw] pt-[12.5cqw]">
         <Image
           src={logoSrc}
           alt=""
           width={42}
           height={38}
-          className="h-[clamp(28px,9cqw,44px)] w-auto shrink-0"
+          className="h-[13cqw] w-auto shrink-0"
           unoptimized
         />
         {eventName ? (
@@ -62,8 +62,8 @@ export function BadgeFront({ attendee, eventName, showPunchHole, theme = DEFAULT
         )}
       </header>
 
-      <div className="flex min-h-0 flex-1 flex-col justify-center px-[8%] pb-[20pt]">
-        <div className="-translate-y-[10pt]">
+      <div className="flex min-h-0 flex-1 flex-col justify-center px-[8%] pb-[12.5cqw]">
+        <div className="-translate-y-[6cqw]">
           <h2
             className="break-words text-left text-[11.5cqw] font-medium uppercase leading-[1.05] tracking-tight"
             style={{ color: theme.fg }}
@@ -81,7 +81,7 @@ export function BadgeFront({ attendee, eventName, showPunchHole, theme = DEFAULT
         </div>
       </div>
 
-      <div className="absolute bottom-[7%] right-[5%] w-[19cqw] min-w-[48px] max-w-[min(116px,23%)]">
+      <div className="absolute bottom-[7%] right-[5%] w-[23cqw]">
         <div className={isLight ? "rounded bg-white p-[6%]" : ""}>
           {attendee.qrDataUrl ? (
             // eslint-disable-next-line @next/next/no-img-element

@@ -83,9 +83,9 @@ export function StepMapping({
   };
 
   return (
-    <div className="flex gap-10" style={{ height: "calc(100vh - 180px)" }}>
+    <div className="flex flex-col gap-8 pb-8 md:h-[calc(100vh-180px)] md:flex-row md:gap-10 md:pb-0">
       {/* ── Left panel: controls ── */}
-      <div className="w-[340px] shrink-0 flex flex-col gap-5 overflow-y-auto py-2">
+      <div className="flex w-full shrink-0 flex-col gap-5 py-2 md:w-[340px] md:overflow-y-auto">
         <div>
           <button
             onClick={onBack}
@@ -158,8 +158,8 @@ export function StepMapping({
       </div>
 
       {/* ── Right panel: full attendee preview, independently scrollable ── */}
-      <div className="flex-1 min-w-0 overflow-y-auto py-2 pl-10">
-        <div className="max-w-xl">
+      <div className="min-w-0 border-t pt-8 md:flex-1 md:overflow-y-auto md:border-t-0 md:py-2 md:pl-10">
+        <div className="max-w-xl md:max-w-none">
           <div className="rounded-xl border bg-card overflow-hidden">
             <div className="px-4 py-3 border-b bg-secondary/40 flex items-center justify-between">
               <span className="text-sm font-medium">Attendee preview</span>

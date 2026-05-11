@@ -145,10 +145,10 @@ export function StepPreview({
   return (
     <>
       {/* ── Screen layout ── */}
-      <div className="no-print flex gap-10" style={{ height: "calc(100vh - 180px)" }}>
+      <div className="no-print flex flex-col gap-8 pb-8 md:h-[calc(100vh-180px)] md:flex-row md:gap-10 md:pb-0">
 
         {/* Left panel */}
-        <div className="flex w-[340px] shrink-0 flex-col gap-4 overflow-hidden py-3 pr-1">
+        <div className="flex w-full shrink-0 flex-col gap-4 py-3 md:w-[340px] md:overflow-hidden md:pr-1">
           <div className="space-y-3">
             <button
               onClick={onBack}
@@ -428,7 +428,7 @@ export function StepPreview({
         </div>
 
         {/* Right panel: page preview */}
-        <div className="flex flex-1 min-w-0 items-center justify-center overflow-hidden py-4 pl-8">
+        <div className="flex min-w-0 items-center justify-center overflow-visible border-t pt-8 pb-4 md:flex-1 md:overflow-hidden md:border-t-0 md:py-4 md:pl-8">
           {isGenerating && !attendees && (
             <div className="flex flex-col items-center gap-3 text-muted-foreground">
               <Loader2 className="h-8 w-8 animate-spin" />
@@ -438,8 +438,8 @@ export function StepPreview({
 
           {ready && (
             <div
-              className="relative bg-white border shadow-md shrink-0"
-              style={{ height: "100%", aspectRatio: "8.5 / 11" }}
+              className="relative w-full max-w-[420px] shrink-0 border bg-white shadow-md md:h-full md:w-auto md:max-w-none"
+              style={{ aspectRatio: "8.5 / 11" }}
             >
               {/* Cut labels in the margin strips */}
               <div className="absolute inset-y-0 left-0 flex items-center justify-center overflow-hidden"

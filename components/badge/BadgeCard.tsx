@@ -46,19 +46,19 @@ export function BadgeCard({
         {showPunchHole && (
           <div
             aria-hidden
-            className={`absolute top-[8%] left-1/2 -translate-x-1/2 w-[2.5cqw] min-w-[8px] max-w-[14px] aspect-square rounded-full border ${
+            className={`absolute top-[8%] left-1/2 -translate-x-1/2 w-[2.5cqw] aspect-square rounded-full border ${
               isLight ? "bg-white/30 border-white/40" : "bg-neutral-200 border-neutral-300"
             }`}
           />
         )}
         {/* Header row: logo left, event name right */}
-        <header className="flex shrink-0 items-start justify-between gap-2 px-[4%] pb-2 pt-[20pt]">
+        <header className="flex shrink-0 items-start justify-between gap-[3cqw] px-[4%] pb-[2.5cqw] pt-[8.2cqw]">
           <Image
             src={logoSrc}
             alt=""
             width={42}
             height={38}
-            className="h-[clamp(18px,5.5cqw,32px)] w-auto shrink-0"
+            className="h-[5.5cqw] w-auto shrink-0"
             unoptimized
           />
           {eventName ? (
@@ -78,8 +78,8 @@ export function BadgeCard({
         </header>
 
         {/* Name + subtitle centred vertically, shifted slightly up */}
-        <div className="flex min-h-0 flex-1 flex-col justify-center px-[4%] pb-[20pt]">
-          <div className="-translate-y-[8pt]">
+        <div className="flex min-h-0 flex-1 flex-col justify-center px-[4%] pb-[8.2cqw]">
+          <div className="-translate-y-[3.3cqw]">
             <h2
               className="break-words text-left text-[8.2cqw] font-medium uppercase leading-[1.05] tracking-tight"
               style={{ color: theme.fg }}
@@ -98,7 +98,7 @@ export function BadgeCard({
         </div>
 
         {/* QR: absolute bottom-right */}
-        <div className="absolute bottom-[8%] right-[3.5%] w-[14.5cqw] min-w-[40px] max-w-[88px]">
+        <div className="absolute bottom-[8%] right-[3.5%] w-[14.5cqw]">
           <div className={isLight ? "rounded bg-white p-[6%]" : ""}>
             {attendee.qrDataUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
