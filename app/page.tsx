@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { FileSpreadsheet, Upload, X, Printer, CheckCircle2 } from "lucide-react";
+import { Download, FileSpreadsheet, Upload, Users, X, Printer, CheckCircle2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/cn";
 import { parseCsvFile } from "@/lib/parseCsv";
@@ -104,6 +104,24 @@ const STEPS = [
   },
 ];
 
+const LUMA_STEPS = [
+  {
+    icon: CheckCircle2,
+    title: "Open Manage Event",
+    body: "In Luma, find your event from your dashboard or event page, then click Manage Event.",
+  },
+  {
+    icon: Users,
+    title: "Go to Guests",
+    body: "Open the Guests tab to view the guest list for that event.",
+  },
+  {
+    icon: Download,
+    title: "Download and upload the CSV",
+    body: "On the top right of the guest list, click the third button with the download icon. Upload that CSV file here.",
+  },
+];
+
 function HowItWorksModal({
   open,
   onClose,
@@ -196,6 +214,98 @@ function HowItWorksModal({
   );
 }
 
+function LumaInstructionsModal({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [open, onClose]);
+
+  return (
+    <div
+      className={cn(
+        "fixed inset-0 z-50 flex items-center justify-center p-4 transition-opacity duration-300 ease-out",
+        open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+      )}
+      role="dialog"
+      aria-modal="true"
+      aria-label="For Luma Events instructions"
+      aria-hidden={!open}
+    >
+      {/* Backdrop */}
+      <div
+        className={cn(
+          "absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 ease-out",
+          open ? "opacity-100" : "opacity-0"
+        )}
+        onClick={onClose}
+        aria-hidden
+      />
+
+      {/* Panel */}
+      <div
+        className={cn(
+          "relative w-full max-w-md rounded-2xl border bg-background shadow-xl p-6 flex flex-col gap-6 transition-all duration-300 ease-out",
+          open ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-2 scale-[0.985]"
+        )}
+      >
+        {/* Header */}
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h2 className="text-lg font-semibold tracking-tight">For Luma Events</h2>
+            <p className="mt-0.5 text-sm text-muted-foreground">
+              Export the guest list CSV from Luma, then upload it here.
+            </p>
+          </div>
+          <button
+            onClick={onClose}
+            className="shrink-0 rounded-lg p-1.5 text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+            aria-label="Close"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+
+        {/* Steps */}
+        <ol className="flex flex-col gap-5">
+          {LUMA_STEPS.map(({ icon: Icon, title, body }, i) => (
+            <li key={i} className="flex gap-4">
+              <div className="shrink-0 flex flex-col items-center">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-foreground text-background text-xs font-semibold">
+                  {i + 1}
+                </div>
+                {i < LUMA_STEPS.length - 1 && (
+                  <div className="mt-2 w-px flex-1 bg-border min-h-[20px]" />
+                )}
+              </div>
+              <div className="pb-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1">
+                  <Icon className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+                  <p className="text-sm font-medium">{title}</p>
+                </div>
+                <p className="text-xs text-muted-foreground leading-relaxed">{body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+
+        <Button onClick={onClose} className="w-full mt-1">
+          Got it
+        </Button>
+      </div>
+    </div>
+  );
+}
+
 export default function HomePage() {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -205,6 +315,7 @@ export default function HomePage() {
   const [isParsing, setIsParsing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showHowItWorks, setShowHowItWorks] = useState(false);
+  const [showLumaInstructions, setShowLumaInstructions] = useState(false);
 
   const stageFile = useCallback((file: File) => {
     setError(null);
@@ -383,7 +494,13 @@ export default function HomePage() {
               How does this work?
             </button>
             <span aria-hidden className="hidden sm:inline">·</span>
-            <span>Files stay on your device.</span>
+            <button
+              type="button"
+              onClick={() => setShowLumaInstructions(true)}
+              className="underline-offset-4 hover:underline hover:text-foreground transition-colors"
+            >
+              For Luma Events Instructions
+            </button>
           </div>
         </div>
       </main>
@@ -391,6 +508,10 @@ export default function HomePage() {
       <HowItWorksModal
         open={showHowItWorks}
         onClose={() => setShowHowItWorks(false)}
+      />
+      <LumaInstructionsModal
+        open={showLumaInstructions}
+        onClose={() => setShowLumaInstructions(false)}
       />
     </div>
   );
