@@ -1,0 +1,7 @@
+/** Amazon.ca product pages for badge holders matching our print dimensions (affiliate-free direct links). */
+
+export const AMAZON_LANYARD_VERTICAL_HOLDER_URL =
+  "https://www.amazon.ca/EY-Plastic-Lanyard-lanyards-Vertical/dp/B0CKYY86FJ/ref=sr_1_7?dib=eyJ2IjoiMSJ9.ujH5j1qacg-gZji7Fc0waWd6wU0L1s8k1Ugfuo67nXIHxebt98ky380PsBfx2HyanRTgX-OqDSyTRnzqSr7sUuEOO25BraH2V3O5N0SCBeNmYLI6RANCT0edIPbY8CjzsTVgc8Ljob9E1854kpF_6LDpGR4iWGSNg4n0bEAZzzxG1a-qPOC7pJGiI3JqOEpf63lcdpwfVZ-CHI8zZL53FvfmMSgIzka8H8kjbJBWJJqlFJHvQAQpu8zWaQk5D50MtIRJ5WInVx6N_YNeZtu0JjVJVbxpA5QGkJle8WRU7_M.viiQVp6dTY1oaGGr5szwqWEEcdHoDNSaayMqxs8HAic&dib_tag=se&keywords=bulk%2Blanyards%2Bwith%2Bid%2Bholder&qid=1778470420&refinements=p_72%3A11192170011&rnid=11192166011&sr=8-7&th=1";
+
+export const AMAZON_LANYARD_HORIZONTAL_HOLDER_URL =
+  "https://www.amazon.ca/EY-Plastic-Lanyard-lanyards-Vertical/dp/B0CKYY4X1M/ref=sr_1_7?dib=eyJ2IjoiMSJ9.ujH5j1qacg-gZji7Fc0waWd6wU0L1s8k1Ugfuo67nXIHxebt98ky380PsBfx2HyanRTgX-OqDSyTRnzqSr7sUuEOO25BraH2V3O5N0SCBeNmYLI6RANCT0edIPbY8CjzsTVgc8Ljob9E1854kpF_6LDpGR4iWGSNg4n0bEAZzzxG1a-qPOC7pJGiI3JqOEpf63lcdpwfVZ-CHI8zZL53FvfmMSgIzka8H8kjbJBWJJqlFJHvQAQpu8zWaQk5D50MtIRJ5WInVx6N_YNeZtu0JjVJVbxpA5QGkJle8WRU7_M.viiQVp6dTY1oaGGr5szwqWEEcdHoDNSaayMqxs8HAic&dib_tag=se&keywords=bulk%2Blanyards%2Bwith%2Bid%2Bholder&qid=1778470420&refinements=p_72%3A11192170011&rnid=11192166011&sr=8-7&th=1";
