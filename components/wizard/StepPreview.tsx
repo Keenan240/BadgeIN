@@ -106,7 +106,10 @@ export function StepPreview({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mappedAttendees, mappingWarnings]);
 
-  const handlePrint = useCallback(() => { window.print(); }, []);
+  const handlePrint = useCallback(() => {
+    void fetch("/api/prints", { method: "POST", keepalive: true }).catch(() => {});
+    window.print();
+  }, []);
 
   const handleBuyLanyard = useCallback(() => {
     const url =

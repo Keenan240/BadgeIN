@@ -19,6 +19,8 @@ The QR code on each badge links directly to that attendee's LinkedIn profile, so
 - [`qrcode`](https://github.com/soldair/node-qrcode) — QR generation
 - [`@react-pdf/renderer`](https://react-pdf.org) — client-side PDF export
 - Deployed on [Vercel](https://vercel.com)
+- [Vercel Web Analytics](https://vercel.com/docs/analytics) (`@vercel/analytics`) for traffic in the Vercel dashboard
+- [Upstash Redis](https://vercel.com/marketplace?category=storage&search=redis) (via Vercel integration) for a durable **print-click** counter
 
 ## Getting started
 
@@ -27,14 +29,57 @@ npm install
 npm run dev
 ```
 
-The app runs at [http://localhost:3000](http://localhost:3000). There is no backend or database — the entire flow lives in the browser.
+The app runs at [http://localhost:3000](http://localhost:3000). CSV parsing and badge generation stay in the browser; optional Redis + API routes only track how often **Print** is used.
+
+### Vercel Web Analytics (visits)
+
+After you enable Web Analytics on the project and deploy with `<Analytics />` in the root layout, open your project on Vercel → **Analytics** for page views and visitors. On the **Hobby** plan, reporting is typically limited to about the **last month** of data (and an event quota); it is not an unlimited historical archive. Longer retention requires a paid plan—see [Vercel Analytics pricing](https://vercel.com/docs/analytics/limits-and-pricing).
+
+### Print-click counter (Redis)
+
+The API uses **Upstash’s HTTP REST** credentials (`UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN`). A plain `REDIS_URL` (TCP) from some wizards is **not** enough—copy the REST URL and REST token from the [Upstash console](https://console.upstash.com) → your database → **REST API**, and add them manually under Vercel → **Settings** → **Environment Variables** if they are missing. Then **redeploy**.
+
+**One-time checklist**
+
+1. **Vercel:** Connect **Upstash Redis** to this project (Production at minimum). Confirm you see **`UPSTASH_REDIS_REST_URL`** and **`UPSTASH_REDIS_REST_TOKEN`** on the project (add from Upstash if needed).
+2. **Vercel:** Add **`STATS_SECRET`** (long random string) for Production.
+3. **Vercel:** **Redeploy** so the new env vars apply.
+4. **This repo on your PC:** One-time CLI login and link, then pull env (optional, for local `next dev` hitting Redis):
+
+   ```bash
+   npx vercel@latest login
+   npx vercel@latest link --yes
+   npm run env:pull
+   ```
+
+   If `link` asks too many questions, link by name: `npx vercel@latest link --yes --project YOUR_VERCEL_PROJECT_NAME` (name from the Vercel dashboard).
+
+   That writes **`.env.development.local`** (gitignored). You still need step 5 for `npm run stats`.
+
+5. **This repo:** Create **`.env.local`** with your **live** API URL and the same secret as on Vercel:
+
+   ```bash
+   BADGEIN_STATS_URL=https://YOUR_PROJECT.vercel.app/api/prints
+   STATS_SECRET=your-long-random-secret
+   ```
+
+6. **Read the count:**
+
+   ```bash
+   npm run stats
+   ```
+
+`npm run stats` loads **`.env.development.local`** first, then **`.env.local`** (so secrets in `.env.local` win).
+
+**Local dev:** without Upstash REST vars, `POST /api/prints` still returns 204 so printing works; the count only increments where Redis REST is configured.
 
 ## Project structure
 
 ```
 app/
   page.tsx              # Landing page
-  generate/page.tsx     # 4-step wizard (upload → map → preview → print)
+  generate/page.tsx     # Wizard (upload → map → preview → print)
+  api/prints/route.ts   # POST increments print counter; GET returns count (Bearer STATS_SECRET)
 components/
   badge/                # BadgeCard, BadgeSheet, BadgePdf
   wizard/               # StepUpload, StepMapping, StepPreview, StepExport, StepIndicator
