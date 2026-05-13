@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "stats": "node scripts/print-stats.mjs",
+    "stats:reset": "node scripts/reset-print-stats.mjs",
     "env:pull": "npx vercel@latest env pull .env.development.local"
   },
   "dependencies": {

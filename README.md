@@ -69,7 +69,15 @@ The API uses **Upstash’s HTTP REST** credentials (`UPSTASH_REDIS_REST_URL` + `
    npm run stats
    ```
 
-`npm run stats` loads **`.env.development.local`** first, then **`.env.local`** (so secrets in `.env.local` win).
+7. **Reset the counter** (same secret as above; deletes the Redis key so the next print is `1` again):
+
+   ```bash
+   npm run stats:reset
+   ```
+
+You can also reset from the [Upstash console](https://console.upstash.com) with `DEL badgein:print_clicks` if you prefer.
+
+`npm run stats` and `npm run stats:reset` load **`.env.development.local`** first, then **`.env.local`** (so secrets in `.env.local` win).
 
 **Local dev:** without Upstash REST vars, `POST /api/prints` still returns 204 so printing works; the count only increments where Redis REST is configured.
 
@@ -79,7 +87,7 @@ The API uses **Upstash’s HTTP REST** credentials (`UPSTASH_REDIS_REST_URL` + `
 app/
   page.tsx              # Landing page
   generate/page.tsx     # Wizard (upload → map → preview → print)
-  api/prints/route.ts   # POST increments print counter; GET returns count (Bearer STATS_SECRET)
+  api/prints/route.ts   # POST increment; GET count; DELETE reset (Bearer STATS_SECRET for GET/DELETE)
 components/
   badge/                # BadgeCard, BadgeSheet, BadgePdf
   wizard/               # StepUpload, StepMapping, StepPreview, StepExport, StepIndicator
